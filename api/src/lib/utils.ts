@@ -1,5 +1,7 @@
 import { config, hd, helpers, HexString } from '@ckb-lumos/lumos'
 
+config.initializeConfig(config.predefined.AGGRON4)
+
 export const generateHDPrivateKey = () => {
   const { mnemonic, ExtendedPrivateKey, AddressType } = hd
   const myMnemonic = mnemonic.generateMnemonic()

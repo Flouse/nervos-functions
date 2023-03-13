@@ -1,6 +1,3 @@
-import { helpers } from '@ckb-lumos/lumos'
-
-import { constructFaucetTransaction, indexer } from './faucet'
 import {
   generateHDPrivateKey,
   getAddressByPrivateKey,
@@ -26,16 +23,6 @@ describe('Test utils', () => {
   it('Should get a testnet address by the private key', () => {
     const addr = getAddressByPrivateKey(TEST_PRIV_KEY!)
     expect(addr).toBe(TEST_ADDR)
-  })
-
-  it.skip('Construct Transaction', async () => {
-    const RECEIVER_ADDR =
-      'ckt1qpuljza4azfdsrwjzdpea6442yfqadqhv7yzfu5zknlmtusm45hpuqgp69n8e0cuccx6jnqu7myulvnpuudkq3lhqqnal82l'
-    const txSkeleton = await constructFaucetTransaction(RECEIVER_ADDR)
-
-    expect(txSkeleton).toStrictEqual(
-      helpers.TransactionSkeleton({ cellProvider: indexer })
-    )
   })
 
   it.skip('Should check CKB balance', async () => {

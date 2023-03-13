@@ -1,11 +1,20 @@
 import { mockHttpEvent } from '@redwoodjs/testing/api'
 
+import { constructFaucetTransaction } from './faucet'
 import { handler } from './faucet'
 
 describe('faucet function', () => {
   it('Check enviroments', () => {
     expect(process.env.FAUCET_POOL_ADDR).not.toBeUndefined()
     expect(process.env.FAUCET_POOL_KEY).not.toBeUndefined()
+  })
+
+  it('Construct Transaction', async () => {
+    const RECEIVER_ADDR =
+      'ckt1qpuljza4azfdsrwjzdpea6442yfqadqhv7yzfu5zknlmtusm45hpuqgp69n8e0cuccx6jnqu7myulvnpuudkq3lhqqnal82l'
+    const txSkeleton = await constructFaucetTransaction(RECEIVER_ADDR)
+
+    expect(txSkeleton.get('outputs').size).toBeGreaterThanOrEqual(10)
   })
 
   it.skip('Successful faucet', async () => {

@@ -14,7 +14,7 @@ import type { APIGatewayEvent, Context } from 'aws-lambda'
 
 import { logger } from 'src/lib/logger'
 
-import { getFaucetPoolAddr, getFaucetPoolKey } from './utils'
+import { getFaucetPoolAddr, getFaucetPoolKey } from '../../lib/utils'
 
 // This faucet feature is based on CKB testnet.
 // Explorer: https://pudge.explorer.nervos.org
