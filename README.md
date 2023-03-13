@@ -11,8 +11,13 @@ Another benefit of combining serverless and blockchain is the ability to build s
 Overall, combining serverless and blockchain can lead to greater efficiency, scalability, automation, and security for decentralized applications and business processes.
 
 ## Environment Variables
-Please create your own .env file to config FAUCET_POOL_KEY etc.
-See [.env.defaults](./.env.defaults)
+
+Please create your own `.env` file to config FAUCET_POOL_KEY etc.
+
+See [.env.defaults](./api/.env.defaults)
+
+### Local Postgres Setup
+See https://redwoodjs.com/docs/local-postgres-setup#connect-to-postgres
 
 ## About [Redwoodjs](https://redwoodjs.com)
 
