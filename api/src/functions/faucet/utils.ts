@@ -1,4 +1,4 @@
-import { config, hd, helpers } from '@ckb-lumos/lumos'
+import { config, hd, helpers, HexString } from '@ckb-lumos/lumos'
 
 export const generateHDPrivateKey = () => {
   const { mnemonic, ExtendedPrivateKey, AddressType } = hd
@@ -37,6 +37,20 @@ export const getAddressByPrivateKey = (privateKey: string) => {
 //   return capacities
 // }
 
-export function isUndefined(obj: unknown): boolean {
+export const isUndefined = (obj: unknown): boolean => {
   return obj === void 0
+}
+
+export const getFaucetPoolKey = (): HexString => {
+  const { FAUCET_POOL_KEY } = process.env
+  if (FAUCET_POOL_KEY === undefined)
+    throw new Error(`missing env.FAUCET_POOL_KEY`)
+  return FAUCET_POOL_KEY
+}
+
+export const getFaucetPoolAddr = (): string => {
+  const { FAUCET_POOL_ADDR } = process.env
+  if (FAUCET_POOL_ADDR === undefined)
+    throw new Error(`missing env.FAUCET_POOL_ADDR`)
+  return FAUCET_POOL_ADDR
 }

@@ -14,7 +14,7 @@ import type { APIGatewayEvent, Context } from 'aws-lambda'
 
 import { logger } from 'src/lib/logger'
 
-import { isUndefined } from './utils'
+import { getFaucetPoolAddr, getFaucetPoolKey } from './utils'
 
 // This faucet feature is based on CKB testnet.
 // Explorer: https://pudge.explorer.nervos.org
@@ -39,19 +39,19 @@ export const indexer = new Indexer(CKB_RPC_URL)
  * @returns a response or error for the request
  */
 export const handler = async (event: APIGatewayEvent, _context: Context) => {
-  // TODO: better log
-  logger.info(`${event.httpMethod} ${event.path}: faucet function`)
-
   let statusCode = 200
   let message = ''
 
   // call facet function
   try {
     const { target_ckt_address: toAddr } = event.queryStringParameters
+    logger.info(
+      `${event.httpMethod} ${event.path}: faucet function requested by ${toAddr}`
+    )
 
     const txHash = await faucet(toAddr)
     message = `A faucet transaction(${txHash}) was sent.
-    Its status could be viewed in https://pudge.explorer.nervos.org/transaction/${txHash}`
+Its status could be viewed in https://pudge.explorer.nervos.org/transaction/${txHash}`
     logger.info(message)
 
     return {
@@ -65,6 +65,8 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       }),
     }
   } catch (err: unknown) {
+    logger.error(err)
+
     if (err instanceof Error) {
       message = err.message
     } else if (typeof err === 'string') {
@@ -73,9 +75,10 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
     return {
       statusCode: statusCode === 200 ? 500 : statusCode,
-      body: {
+      body: JSON.stringify({
+        code: err.code,
         message,
-      },
+      }),
     }
   }
 }
@@ -88,18 +91,13 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
  * TODO: facet with sudt?
  */
 export const faucet = async (toAddr: HexString) => {
-  const { FAUCET_POOL_KEY, FAUCET_POOL_ADDR } = process.env
-  if (isUndefined(FAUCET_POOL_ADDR) || isUndefined(FAUCET_POOL_KEY)) {
-    // TODO
-  }
-
   let txSkeleton = await constructFaucetTransaction(toAddr)
 
   // sign the transation
   const { prepareSigningEntries } = commons.common
   txSkeleton = prepareSigningEntries(txSkeleton)
   const message = txSkeleton.get('signingEntries').get(0)?.message
-  const Sig = hd.key.signRecoverable(message!, FAUCET_POOL_KEY)
+  const Sig = hd.key.signRecoverable(message!, getFaucetPoolKey())
   const tx = helpers.sealTransaction(txSkeleton, [Sig])
 
   // send the transaction, null and passthrough mean skipping outputs validation
@@ -109,7 +107,7 @@ export const faucet = async (toAddr: HexString) => {
 }
 
 export const constructFaucetTransaction = async (toAddr: HexString) => {
-  const senderAddr: commons.FromInfo = process.env.FAUCET_POOL_ADDR!
+  const senderAddr: commons.FromInfo = getFaucetPoolAddr()
   const cellNum = 10
   const outputCapacity = BigInt(100 * 10 ** 8) // shannons
 

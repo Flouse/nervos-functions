@@ -1,14 +1,21 @@
 import { helpers } from '@ckb-lumos/lumos'
 
 import { constructFaucetTransaction, indexer } from './faucet'
-import { generateHDPrivateKey, getAddressByPrivateKey } from './utils'
+import {
+  generateHDPrivateKey,
+  getAddressByPrivateKey,
+  getFaucetPoolAddr,
+  getFaucetPoolKey,
+} from './utils'
 
 const { TEST_PRIV_KEY, TEST_ADDR } = process.env
 
-describe('ckb-js/lumos', () => {
+describe('Test utils', () => {
   it('Check enviroments', () => {
     expect(process.env.TEST_PRIV_KEY).not.toBeUndefined()
     expect(process.env.TEST_ADDR).not.toBeUndefined()
+    expect(getFaucetPoolKey()).not.toBeUndefined()
+    expect(getFaucetPoolAddr()).not.toBeUndefined()
   })
 
   it('Should create a wallet account', () => {
