@@ -10,6 +10,32 @@ Another benefit of combining serverless and blockchain is the ability to build s
 
 Overall, combining serverless and blockchain can lead to greater efficiency, scalability, automation, and security for decentralized applications and business processes.
 
+It appears that you are looking for documentation on how to use a specific serverless API. Here is an example of how you might document the endpoint that you provided:
+
+## Usage
+API Endpoint: https://nervos-functions.vercel.app/api/${functionName}
+
+### faucet
+
+This endpoint allows users to request CKB testnet tokens, including 10 cells with 100 CKB in every cell
+
+#### Request
+Method: GET
+
+Query Parameters:
+
+`target_ckt_address` - the target CKB address to receive the test tokens (required)
+#### Response
+
+```json
+Status Code: 200 OK
+Body:
+{
+    "tx_hash": "<transaction hash>",
+    "message": "A faucet transaction(<transaction hash>) was sent.\nIts status could be viewed in https://pudge.explorer.nervos.org/transaction/<transaction hash>"
+}
+```
+
 ## Environment Variables
 
 Please create your own `.env` file to config FAUCET_POOL_KEY etc.
