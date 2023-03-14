@@ -43,6 +43,12 @@ Please create your own `.env` file to config FAUCET_POOL_KEY etc.
 See [.env.defaults](./api/.env.defaults)
 
 ### Local Postgres Setup
+One development database and one test database are required.
+Read more about it in the testing doc's [The Test Database](https://redwoodjs.com/docs/testing#the-test-database) section.
+```bash
+cd api/db
+docker-compose up -d
+```
 See https://redwoodjs.com/docs/local-postgres-setup#connect-to-postgres
 
 ## About [Redwoodjs](https://redwoodjs.com)
