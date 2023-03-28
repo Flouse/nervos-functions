@@ -1,0 +1,19 @@
+# See https://hub.docker.com/_/postgres
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ps_redwood
+      POSTGRES_DB: nf_dev
+    ports:
+    - 127.0.0.1:65432:5432
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+    - 58080:8080
