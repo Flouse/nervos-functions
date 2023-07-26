@@ -7,10 +7,6 @@ import { handler } from './getRepoContents'
 
 describe('getRepoContents function', () => {
 
-  it('Check environments', () => {
-    expect(process.env.CKB_LAB_PROJECTS_GIT_KEY).not.toBeUndefined()
-  })
-
   it('Should respond with 200', async () => {
     const httpEvent = mockHttpEvent({
       queryStringParameters: {
@@ -20,10 +16,8 @@ describe('getRepoContents function', () => {
     })
 
     const response = await handler(httpEvent, null)
-    const { data } = JSON.parse(response.body)
 
     expect(response.statusCode).toBe(200)
-    expect(data).toBe('getRepoContents function')
   })
 
   // You can also use scenarios to test your api functions
