@@ -6,6 +6,11 @@ import { handler } from './getRepoContents'
 //    https://redwoodjs.com/docs/testing#testing-functions
 
 describe('getRepoContents function', () => {
+
+  it('Check environments', () => {
+    expect(process.env.CKB_LAB_PROJECTS_GIT_KEY).not.toBeUndefined()
+  })
+
   it('Should respond with 200', async () => {
     const httpEvent = mockHttpEvent({
       queryStringParameters: {
