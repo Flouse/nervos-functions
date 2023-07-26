@@ -2,8 +2,8 @@ import { mockHttpEvent } from '@redwoodjs/testing/api'
 
 import { handler } from './getRepoContents'
 
-//   Improve this test with help from the Redwood Testing Doc:
-//    https://redwoodjs.com/docs/testing#testing-functions
+// Improve this test with help from the Redwood Testing Doc:
+// https://redwoodjs.com/docs/testing#testing-functions
 
 describe('getRepoContents function', () => {
 
