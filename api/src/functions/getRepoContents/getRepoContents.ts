@@ -22,7 +22,7 @@ import axios, {AxiosError} from "axios";
 export const handler = async (event: APIGatewayEvent, _context: Context) => {
     logger.info(`${event.httpMethod} ${event.path}: hello function`)
     const {repoName, subPath} = event.queryStringParameters;
-    logger.info(`queryParams: {repoName:${repoName},subPath:${subPath}}`)
+    logger.info(`${event.httpMethod} ${event.path} - queryParams: { repoName: ${repoName}, subPath: ${subPath} }`)
     let statusCode: number = 200;
     let body = {
         code: 0,
