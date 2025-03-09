@@ -21,7 +21,7 @@ describe('faucet function', () => {
     const httpEvent = mockHttpEvent({
       queryStringParameters: {
         target_ckt_address:
-          'ckt1qpuljza4azfdsrwjzdpea6442yfqadqhv7yzfu5zknlmtusm45hpuqgp69n8e0cuccx6jnqu7myulvnpuudkq3lhqqnal82l',
+          'ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwa36p8tx5w82ekazwrk3dptfp5uwudq6q477q09',
       },
     })
 
