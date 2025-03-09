@@ -1,6 +1,6 @@
 import { config, hd, helpers, HexString } from '@ckb-lumos/lumos'
 
-config.initializeConfig(config.predefined.AGGRON4)
+config.initializeConfig(config.TESTNET)
 
 export const generateHDPrivateKey = () => {
   const { mnemonic, ExtendedPrivateKey, AddressType } = hd

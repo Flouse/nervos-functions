@@ -5,8 +5,8 @@ import { handler } from './faucet'
 
 describe('faucet function', () => {
   it('Check enviroments', () => {
-    expect(process.env.FAUCET_POOL_ADDR).not.toBeUndefined()
-    expect(process.env.FAUCET_POOL_KEY).not.toBeUndefined()
+    expect(process.env.FAUCET_POOL_ADDR).toBeDefined()
+    expect(process.env.FAUCET_POOL_KEY).toBeDefined()
   })
 
   it('Construct Transaction', async () => {
