@@ -12,6 +12,10 @@ Overall, combining serverless and blockchain can lead to greater efficiency, sca
 
 It appears that you are looking for documentation on how to use a specific serverless API. Here is an example of how you might document the endpoint that you provided:
 
+## TODO
+
+- [ ] add API docs into the deployment
+
 ## Usage
 API Endpoint: https://nervos-functions.vercel.app/api/${functionName}
 

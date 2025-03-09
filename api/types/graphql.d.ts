@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client"
 import { MergePrismaWithSdlTypes, MakeRelationsOptional } from '@redwoodjs/api'
 import { User as PrismaUser } from '@prisma/client'
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { RedwoodGraphQLContext } from '@redwoodjs/graphql-server/dist/functions/types';
+import { RedwoodGraphQLContext } from '@redwoodjs/graphql-server/dist/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -29,8 +29,10 @@ export type Scalars = {
   Int: number;
   Float: number;
   BigInt: number;
+  Byte: Buffer;
   Date: Date | string;
   DateTime: Date | string;
+  File: File;
   JSON: Prisma.JsonValue;
   JSONObject: Prisma.JsonObject;
   Time: Date | string;
@@ -117,12 +119,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 ) => TResult | Promise<TResult>;
 
 
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Byte: ResolverTypeWrapper<Scalars['Byte']>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  File: ResolverTypeWrapper<Scalars['File']>;
   JSON: ResolverTypeWrapper<Scalars['JSON']>;
   JSONObject: ResolverTypeWrapper<Scalars['JSONObject']>;
   Query: ResolverTypeWrapper<{}>;
@@ -135,8 +140,10 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   BigInt: Scalars['BigInt'];
   Boolean: Scalars['Boolean'];
+  Byte: Scalars['Byte'];
   Date: Scalars['Date'];
   DateTime: Scalars['DateTime'];
+  File: Scalars['File'];
   JSON: Scalars['JSON'];
   JSONObject: Scalars['JSONObject'];
   Query: {};
@@ -159,12 +166,20 @@ export interface BigIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
   name: 'BigInt';
 }
 
+export interface ByteScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Byte'], any> {
+  name: 'Byte';
+}
+
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date';
 }
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
+}
+
+export interface FileScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['File'], any> {
+  name: 'File';
 }
 
 export interface JSONScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
@@ -203,8 +218,10 @@ export interface TimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type Resolvers<ContextType = RedwoodGraphQLContext> = {
   BigInt: GraphQLScalarType;
+  Byte: GraphQLScalarType;
   Date: GraphQLScalarType;
   DateTime: GraphQLScalarType;
+  File: GraphQLScalarType;
   JSON: GraphQLScalarType;
   JSONObject: GraphQLScalarType;
   Query: QueryResolvers<ContextType>;
